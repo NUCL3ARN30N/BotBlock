@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BotBlock</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="ambg"></div>
+
+  <header>
+    <div class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-comment-slash"></i></div>
+      <div class="logo-text">
+        <span class="p1">Bot</span><span class="p2">Block</span>
+      </div>
+    </div>
+    <div class="hlinks">
+      <a href="https://github.com/NUCL3ARN30N/BotBlock" target="_blank" rel="noopener noreferrer" class="hlink"><i class="fa-brands fa-github"></i></a>
+    </div>
+  </header>
+
+  <div class="popup-content">
+
+    <div class="domain-bar">
+      <i class="fa-solid fa-globe"></i>
+      <span id="current-domain">Detecting...</span>
+      <span class="domain-badge hidden" id="tab-count-badge"></span>
+    </div>
+
+    <div class="setting-card">
+      <div class="setting-card-header">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Protection</span>
+      </div>
+      <div class="setting-card-desc" id="protection-desc">
+        Blocking chat widgets and embedded AI assistants on every site.
+      </div>
+      <div class="setting-opts">
+        <button class="setting-opt" id="opt-enabled" data-value="on">
+          <i class="fa-solid fa-shield-halved"></i> Enabled
+        </button>
+        <button class="setting-opt" id="opt-disabled" data-value="off">
+          <i class="fa-solid fa-circle-xmark"></i> Disabled
+        </button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><i class="fa-solid fa-chart-simple"></i><span>Blocked On This Page</span></div>
+      <div class="pb">
+        <div class="stat-value" id="tab-count">0</div>
+        <div class="stat-sub">widgets removed since this page loaded</div>
+      </div>
+    </div>
+
+    <div class="setting-card">
+      <button class="setting-card-header widgets-toggle" id="widgets-toggle" type="button">
+        <i class="fa-solid fa-list-ul"></i>
+        <span>Widgets</span>
+        <span class="widgets-count" id="widgets-count"></span>
+        <i class="fa-solid fa-chevron-down widgets-chevron" id="widgets-chevron"></i>
+      </button>
+      <div class="setting-card-desc" id="widgets-desc">
+        Allow an individual widget on this site without turning off protection everywhere else.
+      </div>
+      <div class="widgets-list hidden" id="widgets-list"></div>
+    </div>
+
+  </div>
+
+  <script src="widgets.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

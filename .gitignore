@@ -1,0 +1,6 @@
+# Browser-generated artifacts from loading the unpacked extension
+_metadata/
+
+# OS cruft
+Thumbs.db
+.DS_Store
