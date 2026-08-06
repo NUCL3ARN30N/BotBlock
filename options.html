@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BotBlock Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="ambg"></div>
+
+  <header>
+    <div class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-comment-slash"></i></div>
+      <div class="logo-text">
+        <span class="p1">Bot</span><span class="p2">Block</span>
+      </div>
+      <span class="page-title">Settings</span>
+    </div>
+    <a href="https://github.com/NUCL3ARN30N/BotBlock" target="_blank" rel="noopener noreferrer" class="hlink"><i class="fa-brands fa-github"></i></a>
+  </header>
+
+  <main>
+
+    <section class="section">
+      <div class="section-header">
+        <i class="fa-solid fa-shield-heart"></i>
+        <h2>Trusted Sites</h2>
+      </div>
+      <p class="section-desc">
+        Fully exempt a site from blocking — nothing is hidden or blocked there, regardless of the per-widget allow-list. Use this for sites you fully trust instead of allowing widgets one at a time.
+      </p>
+      <form class="add-row" id="trusted-form">
+        <input type="text" id="trusted-input" placeholder="example.com" autocomplete="off" spellcheck="false" />
+        <button type="submit" class="btn-primary"><i class="fa-solid fa-plus"></i> Trust site</button>
+      </form>
+      <div class="entry-list" id="trusted-list">
+        <div class="empty-state">No trusted sites yet.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <i class="fa-solid fa-puzzle-piece"></i>
+        <h2>Custom Widget Rules</h2>
+      </div>
+      <p class="section-desc">
+        Add a chat/AI widget not already in BotBlock's built-in catalog. Domains block the widget's network requests; tokens match its id, class, or tag name to hide leftover DOM if the script still loads.
+      </p>
+      <form class="add-form" id="custom-form">
+        <div class="form-row">
+          <label for="custom-name">Name</label>
+          <input type="text" id="custom-name" placeholder="Acme Chat Widget" autocomplete="off" spellcheck="false" required />
+        </div>
+        <div class="form-row">
+          <label for="custom-domains">Domains <span class="optional">(optional, one per line or comma-separated)</span></label>
+          <textarea id="custom-domains" placeholder="widget.acme.com, cdn.acme-chat.io" rows="2"></textarea>
+        </div>
+        <div class="form-row">
+          <label for="custom-tokens">Tokens <span class="optional">(id/class/tag substrings, at least one)</span></label>
+          <textarea id="custom-tokens" placeholder="acme-chat, acme-widget-launcher" rows="2" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary"><i class="fa-solid fa-plus"></i> Add rule</button>
+      </form>
+      <div class="entry-list" id="custom-list">
+        <div class="empty-state">No custom rules yet.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <i class="fa-solid fa-rss"></i>
+        <h2>Filter List Subscriptions</h2>
+      </div>
+      <p class="section-desc">
+        Subscribe to a shared JSON list of custom widget rules maintained by the community, instead of adding each one by hand. Subscribed lists refresh automatically once a day, or any time with the update button. Try the sample list at
+        <a href="https://github.com/NUCL3ARN30N/botblock-filterlists" target="_blank" rel="noopener noreferrer">github.com/NUCL3ARN30N/botblock-filterlists</a>.
+      </p>
+      <form class="add-row" id="subscription-form">
+        <input type="text" id="subscription-input" placeholder="https://raw.githubusercontent.com/NUCL3ARN30N/botblock-filterlists/main/filterlist.json" autocomplete="off" spellcheck="false" />
+        <button type="submit" class="btn-primary" id="subscription-submit"><i class="fa-solid fa-plus"></i> Subscribe</button>
+      </form>
+      <div class="entry-list" id="subscription-list">
+        <div class="empty-state">No subscriptions yet.</div>
+      </div>
+      <div class="status-msg hidden" id="subscription-status"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <i class="fa-solid fa-file-arrow-down"></i>
+        <h2>Backup</h2>
+      </div>
+      <p class="section-desc">
+        Save your protection setting, per-site allow-list, trusted sites, custom rules, and subscriptions to a file, or restore them after switching browsers or profiles. Subscribed lists are re-fetched from their source right after import, not restored from the file.
+      </p>
+      <div class="btn-row">
+        <button class="btn-secondary" id="export-btn" type="button"><i class="fa-solid fa-download"></i> Export</button>
+        <button class="btn-secondary" id="import-btn" type="button"><i class="fa-solid fa-upload"></i> Import</button>
+        <input type="file" id="import-file" accept="application/json,.json" class="hidden" />
+      </div>
+      <div class="status-msg hidden" id="backup-status"></div>
+    </section>
+
+  </main>
+
+  <script src="widgets.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

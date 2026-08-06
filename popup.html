@@ -21,6 +21,7 @@
       </div>
     </div>
     <div class="hlinks">
+      <button class="hlink hlink-btn" id="options-btn" type="button" title="Trusted sites, custom rules &amp; backup"><i class="fa-solid fa-gear"></i></button>
       <a href="https://github.com/NUCL3ARN30N/BotBlock" target="_blank" rel="noopener noreferrer" class="hlink"><i class="fa-brands fa-github"></i></a>
     </div>
   </header>
@@ -30,17 +31,22 @@
     <div class="domain-bar">
       <i class="fa-solid fa-globe"></i>
       <span id="current-domain">Detecting...</span>
+      <span class="domain-badge trusted-badge hidden" id="trusted-badge">Trusted</span>
       <span class="domain-badge hidden" id="tab-count-badge"></span>
     </div>
 
-    <div class="setting-card">
-      <div class="setting-card-header">
-        <i class="fa-solid fa-shield-halved"></i>
-        <span>Protection</span>
-      </div>
-      <div class="setting-card-desc" id="protection-desc">
-        Blocking chat widgets and embedded AI assistants on every site.
-      </div>
+    <div class="reload-banner hidden" id="reload-banner">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span id="reload-banner-text">Reload the page for this change to take effect.</span>
+      <button class="reload-btn" id="reload-btn" type="button">Reload</button>
+    </div>
+
+    <div class="panel">
+      <button class="ph blocked-toggle" id="blocked-toggle" type="button">
+        <i class="fa-solid fa-chart-simple"></i><span>Blocked On This Page</span>
+        <span class="widgets-count" id="widgets-count"></span>
+        <i class="fa-solid fa-chevron-down blocked-chevron" id="blocked-chevron"></i>
+      </button>
       <div class="setting-opts">
         <button class="setting-opt" id="opt-enabled" data-value="on">
           <i class="fa-solid fa-shield-halved"></i> Enabled
@@ -49,27 +55,11 @@
           <i class="fa-solid fa-circle-xmark"></i> Disabled
         </button>
       </div>
-    </div>
-
-    <div class="panel">
-      <div class="ph"><i class="fa-solid fa-chart-simple"></i><span>Blocked On This Page</span></div>
       <div class="pb">
         <div class="stat-value" id="tab-count">0</div>
         <div class="stat-sub">widgets removed since this page loaded</div>
       </div>
-    </div>
-
-    <div class="setting-card">
-      <button class="setting-card-header widgets-toggle" id="widgets-toggle" type="button">
-        <i class="fa-solid fa-list-ul"></i>
-        <span>Widgets</span>
-        <span class="widgets-count" id="widgets-count"></span>
-        <i class="fa-solid fa-chevron-down widgets-chevron" id="widgets-chevron"></i>
-      </button>
-      <div class="setting-card-desc" id="widgets-desc">
-        Allow an individual widget on this site without turning off protection everywhere else.
-      </div>
-      <div class="widgets-list hidden" id="widgets-list"></div>
+      <div class="blocked-list hidden" id="blocked-list"></div>
     </div>
 
   </div>

@@ -77,3 +77,40 @@ const CBB_WIDGETS = [
   { key: "chatwoot", name: "Chatwoot", domains: ["chatwoot.com", "app.chatwoot.com"], tokens: ["chatwoot"] },
   { key: "generic-ai", name: "Generic Chat / AI Assistant Widgets", tokens: ["ai-chat", "ai-assistant", "ai-widget", "virtual-assistant", "copilot-widget", "chat-bubble", "chat-launcher", "chat-widget", "chatbot"] }
 ];
+
+// Shared by options.js (custom rules, subscriptions) and background.js
+// (validating/sanitizing fetched filter lists) so a widget entry — however
+// it was authored — always ends up in the same safe shape before it's
+// merged into CBB_WIDGETS.
+function cbbSlugify(name) {
+  return String(name)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 30);
+}
+
+// Domains feed directly into a declarativeNetRequest urlFilter (`||domain^`)
+// — strip anything that isn't a plausible hostname so a pasted full URL or
+// stray character can't produce a malformed/unintended filter.
+function cbbSanitizeDomain(raw) {
+  let d = String(raw || "").toLowerCase().trim();
+  d = d.replace(/^[a-z]+:\/\//, "");
+  d = d.split("/")[0];
+  d = d.split(":")[0];
+  d = d.replace(/[^a-z0-9.-]/g, "");
+  d = d.replace(/^\.+|\.+$/g, "");
+  return d || null;
+}
+
+// A stable short hash of a string (e.g. a subscription URL), used to derive
+// widget keys that stay the same across re-fetches so per-site allow-list
+// choices survive a filter list update.
+function cbbShortHash(str) {
+  let hash = 0;
+  const s = String(str || "");
+  for (let i = 0; i < s.length; i++) {
+    hash = (hash * 31 + s.charCodeAt(i)) >>> 0;
+  }
+  return hash.toString(36);
+}

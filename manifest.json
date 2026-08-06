@@ -12,13 +12,18 @@
   },
   "permissions": [
     "storage",
-    "declarativeNetRequest"
+    "declarativeNetRequest",
+    "alarms"
   ],
   "host_permissions": [
     "<all_urls>"
   ],
   "background": {
     "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
   },
   "action": {
     "default_popup": "popup.html",
@@ -34,7 +39,6 @@
     {
       "matches": ["<all_urls>"],
       "js": ["widgets.js", "content.js"],
-      "css": ["blocker.css"],
       "run_at": "document_start",
       "all_frames": true,
       "match_about_blank": true

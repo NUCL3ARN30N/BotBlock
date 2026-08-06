@@ -21,11 +21,19 @@
 | **DOM Blocking** | Removes any widget element left in the page, and keeps watching via `MutationObserver` for widgets injected after load |
 | **Live Toggle** | The popup's global Enabled/Disabled switch applies instantly across every open tab, no reload needed |
 | **Per-Site Exceptions** | Allow a single widget on one site without disabling protection anywhere else — the choice is remembered for future visits to that site |
+| **Trusted Sites** | Fully exempt a site from blocking in one step, instead of allowing widgets one at a time — managed from the options page |
+| **Custom Widget Rules** | Add your own vendor (name, domains, DOM tokens) from the options page for anything not in the built-in catalog — gets the same network + DOM blocking as any built-in widget |
+| **Filter List Subscriptions** | Subscribe to a shared JSON list of widget rules instead of adding each one by hand — refreshes automatically, see [Filter Lists](#filter-lists) below |
+| **Backup** | Export/import your protection setting, per-site allow-list, trusted sites, custom rules, and subscriptions as a JSON file, from the options page |
 | **Badge Counter** | Toolbar badge shows how many widgets were blocked on the current tab |
 
 ## Supported Widgets
 
 70+ vendors out of the box — Intercom, Drift, Zendesk Chat, Tawk.to, Crisp, Tidio, Freshchat, Voiceflow, Botpress, Chatbase, Typebot, HubSpot Chat, Facebook Messenger plugin, IBM Watson Assistant, Google Dialogflow Messenger, and more — plus a generic detector for unbranded chat/AI-assistant widgets. All of it lives in one shared registry (`widgets.js`), so adding a new vendor is a single entry, not a scattered patch.
+
+## Filter Lists
+
+Beyond the built-in catalog and your own custom rules, BotBlock can subscribe to community-maintained filter lists — JSON files listing additional widget vendors, refreshed automatically about once a day. A starter list lives at [NUCL3ARN30N/botblock-filterlists](https://github.com/NUCL3ARN30N/botblock-filterlists); subscribe to it (or your own) from the options page's **Filter List Subscriptions** section. That repo also documents the list format and how to contribute a new vendor.
 
 ## Installation
 
@@ -53,10 +61,10 @@ Any modern Chromium-based browser (Chrome, Edge, Brave) or Firefox 121+ (for Man
 |---|---|
 | `manifest.json` | MV3 manifest, unmodified across Chrome and Firefox |
 | `widgets.js` | Shared vendor registry (name, domains, DOM keyword tokens) used by background, content script, and popup |
-| `background.js` | Service worker — rebuilds dynamic `declarativeNetRequest` rules from `widgets.js` minus each site's allow-list, tracks per-tab blocked counts |
-| `content.js` | Injected at `document_start` on every frame; identifies which vendor an element belongs to and removes/hides it live unless that vendor is allowed on the current site |
-| `blocker.css` | Cosmetic hide rules, scoped so they're a no-op while disabled |
+| `background.js` | Service worker — rebuilds dynamic `declarativeNetRequest` rules from `widgets.js` plus custom/subscribed widgets minus each site's allow-list, fetches and refreshes filter list subscriptions (`chrome.alarms`, once daily), tracks per-tab blocked counts |
+| `content.js` | Injected at `document_start` on every frame; identifies which vendor an element belongs to and removes/hides it live unless that vendor is allowed, or the site is fully trusted |
 | `popup.html` / `popup.js` / `popup.css` | Toolbar popup — enable/disable switch, per-tab domain + block count, expandable per-site widget allow-list |
+| `options.html` / `options.js` / `options.css` | Full settings page (`chrome.runtime.openOptionsPage()`) — manage trusted sites, custom widget rules, filter list subscriptions, and backup export/import |
 | `icons/`, `gen_icons.ps1` | Toolbar icons and the script that generates them |
 
 ## Credits
